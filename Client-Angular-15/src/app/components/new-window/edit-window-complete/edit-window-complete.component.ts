@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {cTask, Task} from "../../../models/task";
 import {MonthFormatService} from "../../../services/month-format.service";
 import {MyDataService} from "../../../services/my-data.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-edit-window-complete',
@@ -10,6 +11,8 @@ import {MyDataService} from "../../../services/my-data.service";
 })
 export class EditWindowCompleteComponent {
   @Input() tasks: Task[];
+  @Input() cTasks: Task[];
+  @Input() incTasks: Task[];
   @Output() taskToNW:EventEmitter<Task[]>= new EventEmitter();
 
   @Input() windowVisible: boolean;
@@ -17,6 +20,7 @@ export class EditWindowCompleteComponent {
   @Input() task_id: number;
 
   @Output() closeWindowThis:EventEmitter<{open: boolean, type: string}>= new EventEmitter();
+  @Output() updateTasks:EventEmitter<void>= new EventEmitter();
 
   currentDate: Date = new Date();
 
@@ -29,6 +33,7 @@ export class EditWindowCompleteComponent {
 
   taskName: string;
 
+  rID: number;
   startDate: Date;
   startTime: Date;
 
@@ -38,15 +43,16 @@ export class EditWindowCompleteComponent {
   deadDate: Date;
 
   ngOnInit(): void {
-    this.taskName = this.t.getTask(this.task_id, true).t_name;
+    this.rID = this.getTask(this.task_id).id;
+    this.taskName = this.getTask(this.task_id).t_name;
 
-    this.startDate = this.t.getTask(this.task_id, true).t_startDate;
-    this.startTime = this.t.getTask(this.task_id, true).t_startDate;
+    this.startDate = new Date(this.getTask(this.task_id).t_startDate);
+    this.startTime = new Date(this.getTask(this.task_id).t_startDate);
 
-    this.deadDate = this.t.getTask(this.task_id, true).t_endDate;
+    this.deadDate = new Date(this.getTask(this.task_id).t_endDate);
 
-    this.endDate = this.t.getTask(this.task_id, true).t_completeDate;
-    this.endTime = this.t.getTask(this.task_id, true).t_completeDate;
+    this.endDate = new Date(this.getTask(this.task_id).t_completeDate);
+    this.endTime = new Date(this.getTask(this.task_id).t_completeDate);
   }
 
   editTask() {
@@ -91,13 +97,27 @@ export class EditWindowCompleteComponent {
           this.deadDate = date1;
         }
 
-        let task = new cTask(this.task_id, this.taskName, date1, this.deadDate, true, date2);
+        let task = new cTask(this.rID, this.task_id, this.taskName, date1.toISOString(), this.deadDate.toISOString(), true, date2.toISOString());
 
-        this.tasks = this.t.editTask(this.task_id, task, true);
-        this.taskToNW.emit(this.tasks);
-        this.windowVisible = false;
-        this.closeWindowThis.emit({open: this.windowVisible, type: this.windowType});
+        //this.tasks = this.t.editTask(this.task_id, task, true);
+        //this.taskToNW.emit(this.tasks);
+        this.t.editTask(this.rID, task, true).subscribe(
+          (response: Task) => {
+            this.updateTasks.emit();
+            this.windowVisible = false;
+            this.closeWindowThis.emit({open: this.windowVisible, type: this.windowType});
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
+        );
+
       }
     }
   }
+
+  getTask(task_id: number) {
+    return this.cTasks[task_id - 1];
+  }
+
 }

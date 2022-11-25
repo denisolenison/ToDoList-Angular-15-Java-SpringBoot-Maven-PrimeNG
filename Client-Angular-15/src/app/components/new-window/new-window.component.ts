@@ -9,6 +9,8 @@ import {Task} from "../../models/task";
 export class NewWindowComponent {
   @Input() WHHeight:string = "";
   @Input() tasks: Task[] = [];
+  @Input() cTasks: Task[] = [];
+  @Input() incTasks: Task[] = [];
 
   @Input() windowVisible: boolean;
   @Input() windowType: string;
@@ -16,6 +18,8 @@ export class NewWindowComponent {
 
   @Output() taskToApp:EventEmitter<Task[]>= new EventEmitter();
   @Output() closeWindowThis:EventEmitter<{open: boolean, type: string}>= new EventEmitter();
+  @Output() updateTasks:EventEmitter<void>= new EventEmitter();
+  @Output() addDeleteInfo:EventEmitter<{addTask: Task, deleteTask: number}>= new EventEmitter();
 
   emitNext(tasks:Task[]) {
     this.tasks = tasks;
@@ -32,5 +36,16 @@ export class NewWindowComponent {
     this.windowType = obj.type;
     this.closeWindowThis.emit({open: this.windowVisible, type: this.windowType});
   }
+
+  updateNext() {
+    console.log("XXX");
+    this.updateTasks.emit();
+  }
+
+  addDeleteInfoNext(obj: any) {
+
+    this.addDeleteInfo.emit({addTask: obj.addTask , deleteTask: obj.deleteTask} );
+  }
+
 
 }

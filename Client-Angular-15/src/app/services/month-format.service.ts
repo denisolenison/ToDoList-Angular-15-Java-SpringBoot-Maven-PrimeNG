@@ -46,8 +46,8 @@ export class MonthFormatService implements OnInit {
     setInterval(() => {this.getCurrentTime();}, 50);
   }
 
-  getCurrentTime() : Date {
-    return new Date();
+  getCurrentTime() : string {
+    return new Date().toISOString();
   }
 
 }

@@ -10,7 +10,7 @@ import {MonthFormatService} from "../../services/month-format.service";
 export class TimeGUIComponent implements OnInit {
   constructor(private mf: MonthFormatService){}
 
-  currentDate : Date = new Date();
+  currentDate : string = new Date().toISOString().split('Z')[0];
 
   ngOnInit(): void {
     setInterval(() => {this.getCurrentTime();}, 50);

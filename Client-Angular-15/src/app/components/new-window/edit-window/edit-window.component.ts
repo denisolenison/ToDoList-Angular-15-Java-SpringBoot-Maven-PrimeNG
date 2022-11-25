@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {incTask, Task} from "../../../models/task";
 import {MonthFormatService} from "../../../services/month-format.service";
 import {MyDataService} from "../../../services/my-data.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-edit-window',
@@ -10,6 +11,8 @@ import {MyDataService} from "../../../services/my-data.service";
 })
 export class EditWindowComponent implements OnInit {
   @Input() tasks: Task[];
+  @Input() cTasks: Task[];
+  @Input() incTasks: Task[];
   @Output() taskToNW:EventEmitter<Task[]>= new EventEmitter();
 
   @Input() windowVisible: boolean;
@@ -17,6 +20,7 @@ export class EditWindowComponent implements OnInit {
   @Input() task_id: number;
 
   @Output() closeWindowThis:EventEmitter<{open: boolean, type: string}>= new EventEmitter();
+  @Output() updateTasks:EventEmitter<void>= new EventEmitter();
 
   currentDate: Date = new Date();
 
@@ -27,6 +31,7 @@ export class EditWindowComponent implements OnInit {
 
   }
 
+  rID: number;
   taskName: string;
 
   startDate: Date;
@@ -36,13 +41,14 @@ export class EditWindowComponent implements OnInit {
   endTime: Date;
 
   ngOnInit(): void {
-    this.taskName = this.t.getTask(this.task_id, false).t_name;
+    this.rID = this.getTask(this.task_id).id;
+    this.taskName = this.getTask(this.task_id).t_name;
 
-    this.startDate = this.t.getTask(this.task_id, false).t_startDate;
-    this.startTime = this.t.getTask(this.task_id, false).t_startDate;
+    this.startDate = new Date(this.getTask(this.task_id).t_startDate);
+    this.startTime = new Date(this.getTask(this.task_id).t_startDate);
 
-    this.endDate = this.t.getTask(this.task_id, false).t_endDate;
-    this.endTime = this.t.getTask(this.task_id, false).t_endDate;
+    this.endDate = new Date(this.getTask(this.task_id).t_endDate);
+    this.endTime = new Date(this.getTask(this.task_id).t_endDate);
   }
 
   editTask() {
@@ -72,7 +78,7 @@ export class EditWindowComponent implements OnInit {
       let date1 = new Date(startDt + "T" + startTm);
       let date2 = new Date(endDt + "T" + endTm);
 
-      let task = new incTask(this.task_id, this.taskName, date1, date2);
+      let task = new incTask(this.rID, this.task_id, this.taskName, date1.toISOString(), date2.toISOString());
 
       if (date1.valueOf() >= date2.valueOf()) {
         this.hasError = true;
@@ -80,12 +86,26 @@ export class EditWindowComponent implements OnInit {
       }
 
       if (!this.hasError) {
-        this.tasks = this.t.editTask(this.task_id, task, false);
-        this.taskToNW.emit(this.tasks);
-        this.windowVisible = false;
-        this.closeWindowThis.emit({open: this.windowVisible, type: this.windowType});
+        //this.tasks = this.t.editTask(this.task_id, task, false);
+        //this.taskToNW.emit(this.tasks);
+        this.t.editTask(this.rID, task, false).subscribe(
+          (response: Task) => {
+            this.updateTasks.emit();
+            this.windowVisible = false;
+            this.closeWindowThis.emit({open: this.windowVisible, type: this.windowType});
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
+        );
+
       }
+
     }
+  }
+
+  getTask(task_id: number) {
+      return this.incTasks[task_id - 1];
   }
 
 

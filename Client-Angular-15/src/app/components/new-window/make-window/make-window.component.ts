@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { MonthFormatService } from "../../../services/month-format.service";
 import { MyDataService } from "../../../services/my-data.service";
 import { Task, incTask } from '../../../models/task';
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-make-window',
@@ -16,6 +17,7 @@ export class MakeWindowComponent {
   @Input() windowVisible: boolean;
   @Input() windowType: string;
   @Output() closeWindowThis:EventEmitter<{open: boolean, type: string}>= new EventEmitter();
+  @Output() updateTasks:EventEmitter<void>= new EventEmitter();
 
   hasError: boolean = false;
   theError: string = "";
@@ -48,16 +50,16 @@ export class MakeWindowComponent {
     }
     if (!this.hasError) {
 
-      let startDt = this.startDate.getFullYear() + "-" + this.mf.format00(this.startDate.getMonth()+1) + "-" + this.mf.format00(this.startDate.getDate());
-      let startTm = this.mf.format00(this.startTime.getHours()) + ":" + this.mf.format00(this.startTime.getMinutes()) + ":" + this.mf.format00(this.startTime.getSeconds());
+      let startDt: string = this.startDate.getFullYear() + "-" + this.mf.format00(this.startDate.getMonth()+1) + "-" + this.mf.format00(this.startDate.getDate());
+      let startTm: string = this.mf.format00(this.startTime.getHours()) + ":" + this.mf.format00(this.startTime.getMinutes()) + ":" + this.mf.format00(this.startTime.getSeconds());
 
-      let endDt = this.endDate.getFullYear() + "-" + this.mf.format00(this.endDate.getMonth()+1) + "-" + this.mf.format00(this.endDate.getDate());
-      let endTm = this.mf.format00(this.endTime.getHours()) + ":" + this.mf.format00(this.endTime.getMinutes()) + ":" + this.mf.format00(this.endTime.getSeconds());
+      let endDt: string = this.endDate.getFullYear() + "-" + this.mf.format00(this.endDate.getMonth()+1) + "-" + this.mf.format00(this.endDate.getDate());
+      let endTm: string= this.mf.format00(this.endTime.getHours()) + ":" + this.mf.format00(this.endTime.getMinutes()) + ":" + this.mf.format00(this.endTime.getSeconds());
 
-      let date1 = new Date(startDt + "T" + startTm);
-      let date2 = new Date(endDt + "T" + endTm);
+      let date1: Date = new Date(startDt + "T" + startTm);
+      let date2: Date = new Date(endDt + "T" + endTm);
 
-      let task = new incTask(0, this.taskName, date1, date2);
+      let task = new incTask(0, (this.tasks.length > 0 ? this.tasks[this.tasks.length - 1]["t_id"]+1 : 1), this.taskName, date1.toISOString(), date2.toISOString());
 
       if (date1.valueOf() >= date2.valueOf()) {
         this.hasError = true;
@@ -65,10 +67,17 @@ export class MakeWindowComponent {
       }
 
       if (!this.hasError) {
-        this.tasks = this.t.addTask(task, false);
-        this.taskToNW.emit(this.tasks);
-        this.windowVisible = false;
-        this.closeWindowThis.emit({open: this.windowVisible, type: this.windowType});
+        this.t.addTask(task, false).subscribe(
+          (response: Task) => {
+            this.updateTasks.emit();
+            this.windowVisible = false;
+            this.closeWindowThis.emit({open: this.windowVisible, type: this.windowType});
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
+        );
+
       }
     }
   }

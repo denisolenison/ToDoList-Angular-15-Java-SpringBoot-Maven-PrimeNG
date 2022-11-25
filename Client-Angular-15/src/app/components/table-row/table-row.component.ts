@@ -36,7 +36,7 @@ export class TableRowComponent implements OnInit {
   constructor(private confirmationService: ConfirmationService) {}
 
   ngOnInit(): void {
-    this.taskId = this.thisTask.t_id + 1;
+    this.taskId = this.thisTask.id;
     this.isActive = !this.thisTask.t_isComplete;
     setInterval(() => {this.tableMain();}, 50);
   }
@@ -56,7 +56,8 @@ export class TableRowComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Вы уверены, что хотите пометить данное задание текущим?',
       accept: () => {
-        this.returnTask.emit(this.taskId);
+        console.log(this.thisTask.t_id);
+        this.returnTask.emit(this.thisTask.t_id);
       }
     });
   }
@@ -64,7 +65,7 @@ export class TableRowComponent implements OnInit {
   tableMain() {
     this.getTProgress();
     this.setColor();
-    this.taskId = this.thisTask.t_id;
+    this.taskId = this.thisTask.id;
   }
   getTProgress() {
     this.thisTask.getProgress();

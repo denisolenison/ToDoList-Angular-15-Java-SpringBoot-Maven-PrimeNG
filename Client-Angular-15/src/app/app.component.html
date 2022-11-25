@@ -26,7 +26,7 @@
             (openCreate)="setWindow($event)"></app-header>
 <app-table-header [ngStyle] = "{'top':headerHeight}" [currentPage] = "currentPage"
                   [myData1] = "incTasks" [myData2] = "cTasks"
-                  [myData] = "tasks" (outData)="GetDataFromChild($event)" #appTableHeaderElement></app-table-header>
+                  [myData] = "tasks" (outData)="onUpdate()" #appTableHeaderElement></app-table-header>
 
 <app-table-row [ngStyle] = "{'top':header2Height}"
                *ngFor="let task of incTasks; let isFirst = first; let isLast = last" [thisTask] = "task"
@@ -43,9 +43,11 @@
 <app-time-gui></app-time-gui>
 
 <app-new-window *ngIf="windowVisible" #appNewWindow [WHHeight] = "WHHeight"
-                [tasks] = "tasks" (taskToApp)="GetDataFromChild($event)"
+                [tasks] = "tasks" [cTasks] = "cTasks" [incTasks] = "incTasks"
+                (taskToApp)="GetDataFromChild($event)"
                 [windowVisible] = "windowVisible" [windowType] = "windowType"
-                [task_id] = "task_id" (closeWindowThis)="setWindow($event)">
+                [task_id] = "task_id" (closeWindowThis)="setWindow($event)"
+                (updateTasks) = "onUpdate()" (addDeleteInfo) = "completeTsk($event)">
 </app-new-window>
 
 <div class="placeholder" [ngStyle]="{'height':'200px'}"></div>

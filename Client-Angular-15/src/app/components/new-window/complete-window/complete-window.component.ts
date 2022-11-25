@@ -17,6 +17,7 @@ export class CompleteWindowComponent {
   @Input() task_id: number;
 
   @Output() closeWindowThis:EventEmitter<{open: boolean, type: string}>= new EventEmitter();
+  @Output() addDeleteInfo:EventEmitter<{addTask: Task, deleteTask: number}>= new EventEmitter();
 
   currentDate: Date = new Date();
 
@@ -52,10 +53,18 @@ export class CompleteWindowComponent {
       }
 
       if (!this.hasError) {
-        this.tasks = this.t.completeTask(this.task_id, date);
-        this.taskToNW.emit(this.tasks);
+        //this.tasks = this.t.completeTask(this.task_id, date.toISOString());
+        //this.taskToNW.emit(this.tasks);
         this.windowVisible = false;
         this.closeWindowThis.emit({open: this.windowVisible, type: this.windowType});
+
+
+        let value: any[] = this.t.completeTask(this.tasks, this.task_id, date.toISOString());
+
+        let addTask: Task = value[0];
+        let deleteTask: number = value[1];
+
+        this.addDeleteInfo.emit({addTask: addTask , deleteTask: deleteTask} );
       }
     }
   }

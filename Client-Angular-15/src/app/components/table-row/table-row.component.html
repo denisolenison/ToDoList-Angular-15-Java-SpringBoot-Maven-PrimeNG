@@ -1,7 +1,7 @@
 <p-confirmDialog #cd [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
   <ng-template pTemplate="header">
-    <h3 *ngIf="taskAction == 0">Удаление {{(isActive ? "текущего" : "выполненного")}} задания №{{taskId}}</h3>
-    <h3 *ngIf="taskAction == 1">Вернуть задание №{{taskId}} в текущие?</h3>
+    <h3 *ngIf="taskAction == 0">Удаление {{(isActive ? "текущего" : "выполненного")}} задания №{{thisTask.t_id}}</h3>
+    <h3 *ngIf="taskAction == 1">Вернуть задание №{{thisTask.t_id}} в текущие?</h3>
   </ng-template>
   <ng-template pTemplate="footer">
     <button *ngIf="taskAction == 0" class="p-button-danger" type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
@@ -27,17 +27,17 @@
       <button *ngIf="!isLast" (click)="dragDown(thisTask)" pButton pRipple type="button" class="p-button-rounded p-button-sm p-button-raised">
         <i class="pi pi-angle-down"></i>
       </button>
-      <button *ngIf="!thisTask.t_isComplete" (click)="openWindow(true, 'comp', taskId)" pButton pRipple type="button" class="p-button-success p-button-rounded p-button-sm p-button-raised">
+      <button *ngIf="!thisTask.t_isComplete"  pButton pRipple type="button" (click)="openWindow(true, 'edit', thisTask.t_id)"  class="p-button-help p-button-rounded p-button-sm p-button-raised">
+        <i class="pi pi-file-edit"></i>
+      </button>
+      <button *ngIf="thisTask.t_isComplete"  pButton pRipple type="button" (click)="openWindow(true, 'editC', thisTask.t_id)"  class="p-button-help p-button-rounded p-button-sm p-button-raised">
+        <i class="pi pi-file-edit"></i>
+      </button>
+      <button *ngIf="!thisTask.t_isComplete" (click)="openWindow(true, 'comp', thisTask.t_id)" pButton pRipple type="button" class="p-button-success p-button-rounded p-button-sm p-button-raised">
         <i class="pi pi-check-circle"></i>
       </button>
       <button *ngIf="thisTask.t_isComplete" (click)="confirmReturn()" pButton pRipple type="button" class="p-button-warning p-button-rounded p-button-sm p-button-raised">
         <i class="pi pi-undo"></i>
-      </button>
-      <button *ngIf="!thisTask.t_isComplete"  pButton pRipple type="button" (click)="openWindow(true, 'edit', taskId)"  class="p-button-help p-button-rounded p-button-sm p-button-raised">
-        <i class="pi pi-file-edit"></i>
-      </button>
-      <button *ngIf="thisTask.t_isComplete"  pButton pRipple type="button" (click)="openWindow(true, 'editC', taskId)"  class="p-button-help p-button-rounded p-button-sm p-button-raised">
-        <i class="pi pi-file-edit"></i>
       </button>
       <button (click)="confirmDelete()" pButton pRipple type="button" class="p-button-danger p-button-rounded p-button-sm p-button-raised">
         <i class="pi pi-times-circle"></i>

@@ -15,6 +15,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -29,7 +30,7 @@ import { MyDatePipe } from './pipes/mydate.pipe';
 import { MyDateNSPipe } from './pipes/my-date-ns.pipe';
 import { MonthFormatService } from "./services/month-format.service";
 import { SortsService } from "./services/sorts.service";
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { EditWindowCompleteComponent } from './components/new-window/edit-window-complete/edit-window-complete.component';
 
 
@@ -63,6 +64,7 @@ import { EditWindowCompleteComponent } from './components/new-window/edit-window
         CalendarModule,
         FormsModule,
         ConfirmDialogModule,
+        HttpClientModule
     ],
   providers: [MonthFormatService, SortsService, ConfirmationService],
   bootstrap: [AppComponent]
