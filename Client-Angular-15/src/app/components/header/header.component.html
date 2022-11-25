@@ -1,0 +1,18 @@
+
+
+
+<p id="userName">Привет, {{userName}}<p>
+<div pRipple id="page1" [ngClass] = "{pageSelected : page1Selected,
+                                      pageNotSelected : !page1Selected}"
+(click)="setPage(1)">
+  Текущие</div>
+
+<div pRipple id="page2"[ngClass] = "{pageSelected : page2Selected,
+                                      pageNotSelected : !page2Selected}"
+(click)="setPage(2)">
+  Завершенные</div>
+
+<button pButton pRipple id="addButton" type="button" class="p-button-success p-button-sm
+          p-button-raised p-button-rounded"
+          title="Добавить новое задание" (click)="openTaskWindow()"
+><i class="pi pi-plus"></i></button>

@@ -1,0 +1,28 @@
+<div id="windowHead">
+  <b *ngIf = "windowType == 'add'">Создать новое задание</b>
+  <b *ngIf = "windowType == 'comp'">Отметить задание №{{task_id}} выполненным</b>
+  <b *ngIf = "windowType == 'edit'">Изменить невыполненное задание №{{task_id}}</b>
+  <b *ngIf = "windowType == 'editC'">Изменить выполненное задание №{{task_id}}</b>
+<button pButton pRipple class="closeButton p-button-danger p-button-sm
+          p-button-raised" (click)="closeWindow()">
+  <i class="pi pi-times"></i>
+</button>
+</div>
+<app-make-window *ngIf = "windowType == 'add'" [ngStyle] = "{'margin-top':WHHeight}" [tasks] = "tasks"
+                 (taskToNW)="emitNext($event)" [windowVisible] = "windowVisible"
+                 [windowType] = "windowType" (closeWindowThis) = "onClose($event)"></app-make-window>
+
+<app-complete-window *ngIf = "windowType == 'comp'" [ngStyle] = "{'margin-top':WHHeight}" [tasks] = "tasks"
+                 (taskToNW)="emitNext($event)" [windowVisible] = "windowVisible"
+                 [windowType] = "windowType" (closeWindowThis) = "onClose($event)"
+                     [task_id] = "task_id"></app-complete-window>
+
+<app-edit-window *ngIf = "windowType == 'edit'" [ngStyle] = "{'margin-top':WHHeight}" [tasks] = "tasks"
+                     (taskToNW)="emitNext($event)" [windowVisible] = "windowVisible"
+                     [windowType] = "windowType" (closeWindowThis) = "onClose($event)"
+                     [task_id] = "task_id"></app-edit-window>
+
+<app-edit-window-complete *ngIf = "windowType == 'editC'" [ngStyle] = "{'margin-top':WHHeight}" [tasks] = "tasks"
+                 (taskToNW)="emitNext($event)" [windowVisible] = "windowVisible"
+                 [windowType] = "windowType" (closeWindowThis) = "onClose($event)"
+                 [task_id] = "task_id"></app-edit-window-complete>

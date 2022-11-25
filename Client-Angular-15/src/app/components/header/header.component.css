@@ -1,0 +1,63 @@
+#userName {
+  font-size: 25px;
+  font-weight: 700;
+  margin-left: 20px;
+  margin-top: 13px;
+  margin-bottom: 10px;
+}
+
+#page1, #page2 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  border: 2px solid black;
+  user-select: none;
+  height: 25px;
+  border-radius: 5px;
+  width: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  box-shadow: 0px 0px 9px -5px #000000;
+}
+
+#page1:hover, #page2:hover {
+  cursor: pointer;
+  border: 3px solid black;
+  font-weight: 700;
+  box-sizing: border-box;
+  border-collapse: collapse;
+}
+
+.pageSelected {
+  background-color: #99d4c4;
+}
+
+.pageNotSelected {
+  background-color: #b8fcea;
+}
+
+#addButton {
+  font-size: 40px;
+  font-weight: 500;
+  height: 45px;
+  width: 45px;
+  box-shadow: 0px 0px 12px -5px #000000;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: 7px;
+}
+
+.p-button.p-button-sm {
+  font-size: 0.575rem;
+  padding: 0rem 0.65rem;
+}
+
+i {
+  font-size: 1.25rem;
+  margin: 0rem;
+}

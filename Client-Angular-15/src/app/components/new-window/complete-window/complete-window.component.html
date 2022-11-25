@@ -1,0 +1,22 @@
+<form action="" method="" id="theFormComplete">
+  <p style="height:5px"></p>
+  <label>Введите дату выполнения задания:</label>
+  <p style="height:10px"></p>
+  <label>Дата и время выполнения:</label>
+  <p style="height:10px"></p>
+  <span>
+  <p-calendar [showButtonBar]="true" [required]="true" dateFormat="dd.mm.yy" [(ngModel)]="compDate" [maxDate]="currentDate"
+              [style]="{'width':'40%',
+                        'margin-left':'5%'}" [inputStyle]="{'width':'40%'}"
+              [firstDayOfWeek]="1"  [ngModelOptions]="{standalone: true}"></p-calendar>
+  <p-calendar [timeOnly]="true" hourFormat="24" [required]="true" [(ngModel)]="compTime" [ngModelOptions]="{standalone: true}"
+              [style]="{'width':'40%',
+                        'margin-left':'10%'}" [inputStyle]="{'width':'40%'}"></p-calendar>
+  </span>
+  <p style="height:10px"></p>
+  <b class="error" id="errorMake" *ngIf="hasError">{{theError}}</b>
+  <p style="height:15px"></p>
+  <button pButton pRipple type="button" (click)="completeTask()"
+          id="compTask" label="Выполнить Задание"></button>
+  <p style="height:5px"></p>
+</form>

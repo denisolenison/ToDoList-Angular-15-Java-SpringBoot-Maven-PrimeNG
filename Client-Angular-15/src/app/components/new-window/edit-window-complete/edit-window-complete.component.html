@@ -1,0 +1,39 @@
+<form action="" method="" id="theFormEdit">
+  <p style="height:5px"></p>
+  <label for="taskTextMake">Введите название задания:</label>
+  <p style="height:10px"></p>
+  <textarea [rows]="1" pInputTextarea name="taskText"
+            id="taskTextMake"
+            placeholder="Введите текст самого задания"
+            maxlength="1000" required [(ngModel)]="taskName"></textarea>
+  <p style="height:10px"></p>
+  <label>Дата и время начала:</label>
+  <p style="height:10px"></p>
+  <span>
+  <p-calendar [showButtonBar]="true" [required]="true" dateFormat="dd.mm.yy" [(ngModel)]="startDate" [maxDate]="endDate"
+              [style]="{'width':'40%',
+                        'margin-left':'5%'}" [inputStyle]="{'width':'40%'}"
+              [firstDayOfWeek]="1"  [ngModelOptions]="{standalone: true}"></p-calendar>
+  <p-calendar [timeOnly]="true" hourFormat="24" [required]="true" [(ngModel)]="startTime" [ngModelOptions]="{standalone: true}"
+              [style]="{'width':'40%',
+                        'margin-left':'10%'}" [inputStyle]="{'width':'40%'}"></p-calendar>
+  </span>
+  <p style="height:15px"></p>
+  <label>Дата и время выполнения:</label>
+  <p style="height:10px"></p>
+  <span>
+  <p-calendar [showButtonBar]="true" [required]="true" dateFormat="dd.mm.yy" [(ngModel)]="endDate" [minDate]="startDate"
+              [style]="{'width':'40%',
+                        'margin-left':'5%'}" [inputStyle]="{'width':'40%'}"
+              [firstDayOfWeek]="1"  [ngModelOptions]="{standalone: true}"></p-calendar>
+  <p-calendar [timeOnly]="true" hourFormat="24" [required]="true" [(ngModel)]="endTime" [ngModelOptions]="{standalone: true}"
+              [style]="{'width':'40%',
+                        'margin-left':'10%'}" [inputStyle]="{'width':'40%'}"></p-calendar>
+  </span>
+  <p style="height:10px"></p>
+  <b class="error" id="errorMake" *ngIf="hasError">{{theError}}</b>
+  <p style="height:15px"></p>
+  <button pButton pRipple type="button" (click)="editTask()"
+          id="editTask" label="Изменить Задание"></button>
+  <p style="height:5px"></p>
+</form>
