@@ -12,12 +12,12 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class MakeWindowComponent {
 
   @Input() tasks: Task[];
-  @Output() taskToNW:EventEmitter<Task[]>= new EventEmitter();
 
   @Input() windowVisible: boolean;
   @Input() windowType: string;
   @Output() closeWindowThis:EventEmitter<{open: boolean, type: string}>= new EventEmitter();
   @Output() updateTasks:EventEmitter<void>= new EventEmitter();
+
 
   hasError: boolean = false;
   theError: string = "";
@@ -59,7 +59,7 @@ export class MakeWindowComponent {
       let date1: Date = new Date(startDt + "T" + startTm);
       let date2: Date = new Date(endDt + "T" + endTm);
 
-      let task = new incTask(0, (this.tasks.length > 0 ? this.tasks[this.tasks.length - 1]["t_id"]+1 : 1), this.taskName, date1.toISOString(), date2.toISOString());
+      let task = new incTask(0, (this.tasks.length > 0 ? this.tasks[this.tasks.length - 1]["taskId"]+1 : 1), this.taskName, date1.toISOString(), date2.toISOString());
 
       if (date1.valueOf() >= date2.valueOf()) {
         this.hasError = true;

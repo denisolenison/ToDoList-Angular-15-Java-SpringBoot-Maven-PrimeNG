@@ -48,12 +48,12 @@ public class IncompleteTaskController {
 
         if (thisITask.isPresent()) {
             IncompleteTask thisITaskData = thisITask.get();
-            thisITaskData.setT_id(incTask.getT_id());
-            thisITaskData.setT_name(incTask.getT_name());
-            thisITaskData.setT_startDate(incTask.getT_startDate());
-            thisITaskData.setT_endDate(incTask.getT_endDate());
-            thisITaskData.setT_completeDate(incTask.getT_completeDate());
-            thisITaskData.setT_progress(incTask.getT_progress());
+            thisITaskData.setTaskId(incTask.getTaskId());
+            thisITaskData.setTaskName(incTask.getTaskName());
+            thisITaskData.setTaskStartDate(incTask.getTaskStartDate());
+            thisITaskData.setTaskEndDate(incTask.getTaskEndDate());
+            thisITaskData.setTaskCompleteDate(incTask.getTaskCompleteDate());
+            thisITaskData.setTaskProgress(incTask.getTaskProgress());
             return new ResponseEntity<>(incompleteTaskRepo.save(thisITaskData), HttpStatus.OK);
         }
         else {
@@ -71,24 +71,24 @@ public class IncompleteTaskController {
         if (thisITask1.isPresent()) {
             IncompleteTask thisITaskData1 = thisITask1.get();
 
-            thisITaskData1.setT_id(incTasks.get(0).getT_id());
-            thisITaskData1.setT_name(incTasks.get(0).getT_name());
-            thisITaskData1.setT_startDate(incTasks.get(0).getT_startDate());
-            thisITaskData1.setT_endDate(incTasks.get(0).getT_endDate());
-            thisITaskData1.setT_completeDate(incTasks.get(0).getT_completeDate());
-            thisITaskData1.setT_progress(incTasks.get(0).getT_progress());
+            thisITaskData1.setTaskId(incTasks.get(0).getTaskId());
+            thisITaskData1.setTaskName(incTasks.get(0).getTaskName());
+            thisITaskData1.setTaskStartDate(incTasks.get(0).getTaskStartDate());
+            thisITaskData1.setTaskEndDate(incTasks.get(0).getTaskEndDate());
+            thisITaskData1.setTaskCompleteDate(incTasks.get(0).getTaskCompleteDate());
+            thisITaskData1.setTaskProgress(incTasks.get(0).getTaskProgress());
 
             if (thisITask2.isPresent()) {
                 ArrayList<IncompleteTask> this2ITasksData = new ArrayList<IncompleteTask>();
 
                 IncompleteTask thisITaskData2 = thisITask2.get();
 
-                thisITaskData2.setT_id(incTasks.get(1).getT_id());
-                thisITaskData2.setT_name(incTasks.get(1).getT_name());
-                thisITaskData2.setT_startDate(incTasks.get(1).getT_startDate());
-                thisITaskData2.setT_endDate(incTasks.get(1).getT_endDate());
-                thisITaskData2.setT_completeDate(incTasks.get(1).getT_completeDate());
-                thisITaskData2.setT_progress(incTasks.get(1).getT_progress());
+                thisITaskData2.setTaskId(incTasks.get(1).getTaskId());
+                thisITaskData2.setTaskName(incTasks.get(1).getTaskName());
+                thisITaskData2.setTaskStartDate(incTasks.get(1).getTaskStartDate());
+                thisITaskData2.setTaskEndDate(incTasks.get(1).getTaskEndDate());
+                thisITaskData2.setTaskCompleteDate(incTasks.get(1).getTaskCompleteDate());
+                thisITaskData2.setTaskProgress(incTasks.get(1).getTaskProgress());
 
                 this2ITasksData.add(thisITaskData1);
                 this2ITasksData.add(thisITaskData2);
@@ -112,12 +112,12 @@ public class IncompleteTaskController {
                 ArrayList<IncompleteTask> thisAllITasksData = new ArrayList<IncompleteTask>();
                 for (int i = 0; i < incTasks.size(); ++i) {
                     IncompleteTask thisITaskData = thisITasks.get().get(i);
-                    thisITaskData.setT_id(incTasks.get(i).getT_id());
-                    thisITaskData.setT_name(incTasks.get(i).getT_name());
-                    thisITaskData.setT_startDate(incTasks.get(i).getT_startDate());
-                    thisITaskData.setT_endDate(incTasks.get(i).getT_endDate());
-                    thisITaskData.setT_completeDate(incTasks.get(i).getT_completeDate());
-                    thisITaskData.setT_progress(incTasks.get(i).getT_progress());
+                    thisITaskData.setTaskId(incTasks.get(i).getTaskId());
+                    thisITaskData.setTaskName(incTasks.get(i).getTaskName());
+                    thisITaskData.setTaskStartDate(incTasks.get(i).getTaskStartDate());
+                    thisITaskData.setTaskEndDate(incTasks.get(i).getTaskEndDate());
+                    thisITaskData.setTaskCompleteDate(incTasks.get(i).getTaskCompleteDate());
+                    thisITaskData.setTaskProgress(incTasks.get(i).getTaskProgress());
                     thisAllITasksData.add(thisITaskData);
                 }
                 return new ResponseEntity<>(incompleteTaskRepo.saveAll(thisAllITasksData), HttpStatus.OK);

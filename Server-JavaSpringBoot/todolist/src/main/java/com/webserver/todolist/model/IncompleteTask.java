@@ -8,84 +8,85 @@ public class IncompleteTask implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long id;
-    private Long t_id;
-    private String t_name;
-    private String t_startDate;
-    private String t_endDate;
-    private float t_progress;
-    private boolean t_isComplete;
-    private String t_completeDate;
+
+    private Long taskId;
+    private String taskName;
+    private String taskStartDate;
+    private String taskEndDate;
+    private float taskProgress;
+    private boolean taskIsComplete;
+    private String taskCompleteDate;
 
     public IncompleteTask() {}
 
-    public IncompleteTask(Long t_id, String t_name, String t_startDate, String t_endDate, float t_progress,
-                          String t_completeDate) {
-        this.t_id = t_id;
-        this.t_name = t_name;
-        this.t_startDate = t_startDate;
-        this.t_endDate = t_endDate;
-        this.t_progress = t_progress;
-        this.t_isComplete = false;
-        this.t_completeDate = t_completeDate;
+    public IncompleteTask(Long taskId, String taskName, String taskStartDate, String taskEndDate, float taskProgress,
+                          String taskCompleteDate) {
+        this.taskId = taskId;
+        this.taskName = taskName;
+        this.taskStartDate = taskStartDate;
+        this.taskEndDate = taskEndDate;
+        this.taskProgress = taskProgress;
+        this.taskIsComplete = false;
+        this.taskCompleteDate = taskCompleteDate;
     }
 
-    public Long get_id() {
+    public Long getId() {
         return id;
     }
 
-    public Long getT_id() {
-        return t_id;
+    public Long getTaskId() {
+        return taskId;
     }
 
-    public void setT_id(Long t_id) {
-        this.t_id = t_id;
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
     }
 
-    public String getT_name() {
-        return t_name;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setT_name(String t_name) {
-        this.t_name = t_name;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
-    public String getT_startDate() {
-        return t_startDate;
+    public String getTaskStartDate() {
+        return taskStartDate;
     }
 
-    public void setT_startDate(String t_startDate) {
-        this.t_startDate = t_startDate;
+    public void setTaskStartDate(String taskStartDate) {
+        this.taskStartDate = taskStartDate;
     }
 
-    public String getT_endDate() {
-        return t_endDate;
+    public String getTaskEndDate() {
+        return taskEndDate;
     }
 
-    public void setT_endDate(String t_endDate) {
-        this.t_endDate = t_endDate;
+    public void setTaskEndDate(String taskEndDate) {
+        this.taskEndDate = taskEndDate;
     }
 
-    public float getT_progress() {
-        return t_progress;
+    public float getTaskProgress() {
+        return taskProgress;
     }
 
-    public void setT_progress(float t_progress) {
-        this.t_progress = t_progress;
+    public void setTaskProgress(float taskProgress) {
+        this.taskProgress = taskProgress;
     }
 
-    public boolean isT_isComplete() {
-        return t_isComplete;
+    public boolean isTaskIsComplete() {
+        return taskIsComplete;
     }
 
-    public void setT_isComplete(boolean t_isComplete) {
-        this.t_isComplete = t_isComplete;
+    public void setTaskIsComplete(boolean taskIsComplete) {
+        this.taskIsComplete = taskIsComplete;
     }
 
-    public String getT_completeDate() {
-        return t_completeDate;
+    public String getTaskCompleteDate() {
+        return taskCompleteDate;
     }
 
-    public void setT_completeDate(String t_completeDate) {
-        this.t_completeDate = t_completeDate;
+    public void setTaskCompleteDate(String taskCompleteDate) {
+        this.taskCompleteDate = taskCompleteDate;
     }
 }

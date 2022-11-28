@@ -10,7 +10,6 @@ import {MyDataService} from "../../../services/my-data.service";
 })
 export class CompleteWindowComponent {
   @Input() tasks: Task[];
-  @Output() taskToNW:EventEmitter<Task[]>= new EventEmitter();
 
   @Input() windowVisible: boolean;
   @Input() windowType: string;

@@ -1,56 +1,56 @@
 export interface Task {
 
   id: number
-  t_id: number;
-  t_name: string;
-  t_startDate: string;
-  t_endDate: string;
-  t_progress: number;
-  t_isComplete: boolean;
-  t_completeDate: string;
+  taskId: number;
+  taskName: string;
+  taskStartDate: string;
+  taskEndDate: string;
+  taskProgress: number;
+  taskIsComplete: boolean;
+  taskCompleteDate: string;
 
   getProgress() : void;
 }
 
 export class incTask implements Task {
 
-  constructor(id: number, t_id: number, t_name: string, t_startDate: string,
-              t_endDate: string, t_isComplete: boolean = false) {
+  constructor(id: number, taskId: number, taskName: string, taskStartDate: string,
+              taskEndDate: string, taskIsComplete: boolean = false) {
     this.id = id;
-    this.t_id = t_id;
-    this.t_name = t_name;
-    this.t_startDate = t_startDate;
-    this.t_endDate = t_endDate;
-    this.t_isComplete = t_isComplete;
-    this.t_completeDate = new Date().toISOString();
+    this.taskId = taskId;
+    this.taskName = taskName;
+    this.taskStartDate = taskStartDate;
+    this.taskEndDate = taskEndDate;
+    this.taskIsComplete = taskIsComplete;
+    this.taskCompleteDate = new Date().toISOString();
     this.getProgress();
   }
 
 
   id: number;
-  t_id: number;
-  t_name: string;
-  t_startDate: string;
-  t_endDate: string;
-  t_progress: number;
-  t_isComplete: boolean;
-  t_completeDate: string;
+  taskId: number;
+  taskName: string;
+  taskStartDate: string;
+  taskEndDate: string;
+  taskProgress: number;
+  taskIsComplete: boolean;
+  taskCompleteDate: string;
 
   getProgress() : void {
-    this.t_progress = ((new Date()).valueOf() - new Date(this.t_startDate).valueOf()) /
-      (new Date(this.t_endDate).valueOf() - new Date(this.t_startDate).valueOf());
-    ((this.t_progress > 1) ? this.t_progress = 1 : this.t_progress);
-    ((this.t_progress < 0) ? this.t_progress = 0 : this.t_progress);
+    this.taskProgress = ((new Date()).valueOf() - new Date(this.taskStartDate).valueOf()) /
+      (new Date(this.taskEndDate).valueOf() - new Date(this.taskStartDate).valueOf());
+    ((this.taskProgress > 1) ? this.taskProgress = 1 : this.taskProgress);
+    ((this.taskProgress < 0) ? this.taskProgress = 0 : this.taskProgress);
   }
 }
 
 export class cTask extends incTask {
 
-  constructor(id: number, t_id: number, t_name: string, t_startDate: string,
-              t_endDate: string, t_isComplete: boolean = true, t_completeDate: string) {
-    super(id, t_id, t_name, t_startDate, t_endDate, t_isComplete)
-    this.t_completeDate = t_completeDate;
-    this.t_progress = 0;
+  constructor(id: number, taskId: number, taskName: string, taskStartDate: string,
+              taskEndDate: string, taskIsComplete: boolean = true, taskCompleteDate: string) {
+    super(id, taskId, taskName, taskStartDate, taskEndDate, taskIsComplete)
+    this.taskCompleteDate = taskCompleteDate;
+    this.taskProgress = 0;
   }
 
   override getProgress() : void {

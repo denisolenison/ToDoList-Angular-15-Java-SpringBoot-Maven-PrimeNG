@@ -50,12 +50,12 @@ public class CompleteTaskController {
 
         if (thisCTask.isPresent()) {
             CompleteTask thisCTaskData = thisCTask.get();
-            thisCTaskData.setT_id(cTask.getT_id());
-            thisCTaskData.setT_name(cTask.getT_name());
-            thisCTaskData.setT_startDate(cTask.getT_startDate());
-            thisCTaskData.setT_endDate(cTask.getT_endDate());
-            thisCTaskData.setT_completeDate(cTask.getT_completeDate());
-            thisCTaskData.setT_progress(cTask.getT_progress());
+            thisCTaskData.setTaskId(cTask.getTaskId());
+            thisCTaskData.setTaskName(cTask.getTaskName());
+            thisCTaskData.setTaskStartDate(cTask.getTaskStartDate());
+            thisCTaskData.setTaskEndDate(cTask.getTaskEndDate());
+            thisCTaskData.setTaskCompleteDate(cTask.getTaskCompleteDate());
+            thisCTaskData.setTaskProgress(cTask.getTaskProgress());
             return new ResponseEntity<>(completeTaskRepo.save(thisCTaskData), HttpStatus.OK);
         }
         else {
@@ -73,24 +73,24 @@ public class CompleteTaskController {
         if (thisCTask1.isPresent()) {
             CompleteTask thisCTaskData1 = thisCTask1.get();
 
-            thisCTaskData1.setT_id(cTasks.get(0).getT_id());
-            thisCTaskData1.setT_name(cTasks.get(0).getT_name());
-            thisCTaskData1.setT_startDate(cTasks.get(0).getT_startDate());
-            thisCTaskData1.setT_endDate(cTasks.get(0).getT_endDate());
-            thisCTaskData1.setT_completeDate(cTasks.get(0).getT_completeDate());
-            thisCTaskData1.setT_progress(cTasks.get(0).getT_progress());
+            thisCTaskData1.setTaskId(cTasks.get(0).getTaskId());
+            thisCTaskData1.setTaskName(cTasks.get(0).getTaskName());
+            thisCTaskData1.setTaskStartDate(cTasks.get(0).getTaskStartDate());
+            thisCTaskData1.setTaskEndDate(cTasks.get(0).getTaskEndDate());
+            thisCTaskData1.setTaskCompleteDate(cTasks.get(0).getTaskCompleteDate());
+            thisCTaskData1.setTaskProgress(cTasks.get(0).getTaskProgress());
 
             if (thisCTask2.isPresent()) {
                 ArrayList<CompleteTask> this2CTasksData = new ArrayList<CompleteTask>();
 
                 CompleteTask thisCTaskData2 = thisCTask2.get();
 
-                thisCTaskData2.setT_id(cTasks.get(1).getT_id());
-                thisCTaskData2.setT_name(cTasks.get(1).getT_name());
-                thisCTaskData2.setT_startDate(cTasks.get(1).getT_startDate());
-                thisCTaskData2.setT_endDate(cTasks.get(1).getT_endDate());
-                thisCTaskData2.setT_completeDate(cTasks.get(1).getT_completeDate());
-                thisCTaskData2.setT_progress(cTasks.get(1).getT_progress());
+                thisCTaskData2.setTaskId(cTasks.get(1).getTaskId());
+                thisCTaskData2.setTaskName(cTasks.get(1).getTaskName());
+                thisCTaskData2.setTaskStartDate(cTasks.get(1).getTaskStartDate());
+                thisCTaskData2.setTaskEndDate(cTasks.get(1).getTaskEndDate());
+                thisCTaskData2.setTaskCompleteDate(cTasks.get(1).getTaskCompleteDate());
+                thisCTaskData2.setTaskProgress(cTasks.get(1).getTaskProgress());
 
                 this2CTasksData.add(thisCTaskData1);
                 this2CTasksData.add(thisCTaskData2);
@@ -115,12 +115,12 @@ public class CompleteTaskController {
                 ArrayList<CompleteTask> thisAllCTasksData = new ArrayList<CompleteTask>();
                 for (int i = 0; i < cTasks.size(); ++i) {
                     CompleteTask thisCTaskData = thisCTasks.get().get(i);
-                    thisCTaskData.setT_id(cTasks.get(i).getT_id());
-                    thisCTaskData.setT_name(cTasks.get(i).getT_name());
-                    thisCTaskData.setT_startDate(cTasks.get(i).getT_startDate());
-                    thisCTaskData.setT_endDate(cTasks.get(i).getT_endDate());
-                    thisCTaskData.setT_completeDate(cTasks.get(i).getT_completeDate());
-                    thisCTaskData.setT_progress(cTasks.get(i).getT_progress());
+                    thisCTaskData.setTaskId(cTasks.get(i).getTaskId());
+                    thisCTaskData.setTaskName(cTasks.get(i).getTaskName());
+                    thisCTaskData.setTaskStartDate(cTasks.get(i).getTaskStartDate());
+                    thisCTaskData.setTaskEndDate(cTasks.get(i).getTaskEndDate());
+                    thisCTaskData.setTaskCompleteDate(cTasks.get(i).getTaskCompleteDate());
+                    thisCTaskData.setTaskProgress(cTasks.get(i).getTaskProgress());
                     thisAllCTasksData.add(thisCTaskData);
                 }
                 return new ResponseEntity<>(completeTaskRepo.saveAll(thisAllCTasksData), HttpStatus.OK);

@@ -19,8 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { TableHeaderComponent } from './components/table-header/table-header.component';
-import { TableRowComponent } from './components/table-row/table-row.component';
 import { TimeGUIComponent } from './components/time-gui/time-gui.component';
 import { NewWindowComponent } from './components/new-window/new-window.component';
 import { MakeWindowComponent } from './components/new-window/make-window/make-window.component';
@@ -32,14 +30,13 @@ import { MonthFormatService } from "./services/month-format.service";
 import { SortsService } from "./services/sorts.service";
 import { FormsModule } from "@angular/forms";
 import { EditWindowCompleteComponent } from './components/new-window/edit-window-complete/edit-window-complete.component';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    TableHeaderComponent,
-    TableRowComponent,
     TimeGUIComponent,
     NewWindowComponent,
     MakeWindowComponent,
@@ -64,7 +61,8 @@ import { EditWindowCompleteComponent } from './components/new-window/edit-window
         CalendarModule,
         FormsModule,
         ConfirmDialogModule,
-        HttpClientModule
+        HttpClientModule,
+        TableModule
     ],
   providers: [MonthFormatService, SortsService, ConfirmationService],
   bootstrap: [AppComponent]

@@ -1,5 +1,4 @@
 import {Injectable, Output} from '@angular/core';
-import { incTasks as dataInc , cTasks as dataC } from '../data/tasks';
 import {incTask, cTask, Task} from "../models/task";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {enviroment} from "../../environments/enviroment";
@@ -11,8 +10,8 @@ import {SortsService} from "./sorts.service";
 })
 export class MyDataService {
   private serverURL = enviroment.baseAPIURL;
-  incTasks: Task[] = dataInc;
-  cTasks: Task[] = dataC;
+  incTasks: Task[] = [];
+  cTasks: Task[] = [];
 
   @Output() tasks: Task[] = this.incTasks.concat(this.cTasks);
 
@@ -20,7 +19,7 @@ export class MyDataService {
 
   getAllTasks(isComplete: boolean): Observable<Task[]> {
     if (!isComplete) {
-      return this.http.get<Task[]>(`${this.serverURL}/it/all`);
+      return this.http.get<any>(`${this.serverURL}/it/all`);
     }
     else {
       return this.http.get<Task[]>(`${this.serverURL}/ct/all`);
@@ -28,29 +27,31 @@ export class MyDataService {
   }
 
   toIncTaskType(data: any): incTask {
-    let id = 0, t_id = 0, t_name = "Name Error", t_startDate = "1970-01-01T00:00:00",
-      t_endDate = "2037-12-31T23:59:59";
-    if (data["_id"]) id = data["_id"];
-    if (data["t_id"]) t_id = data["t_id"];
-    if (data["t_name"]) t_name = data["t_name"];
-    if (data["t_startDate"]) t_startDate = data["t_startDate"];
-    if (data["t_endDate"]) t_endDate = data["t_endDate"];
+    let id = 0, taskId = 0, taskName = "Name Error", taskStartDate = "1970-01-01T00:00:00",
+      taskEndDate = "2037-12-31T23:59:59", taskProgress = 0;
+    if (data["id"]) id = data["id"];
+    if (data["taskId"]) taskId = data["taskId"];
+    if (data["taskName"]) taskName = data["taskName"];
+    if (data["taskStartDate"]) taskStartDate = data["taskStartDate"];
+    if (data["taskEndDate"]) taskEndDate = data["taskEndDate"];
+    if (data["taskProgress"]) taskProgress = data["taskProgress"];
 
-    let newITask = new incTask(id, t_id, t_name, t_startDate, t_endDate, false);
+    let newITask = new incTask(id, taskId, taskName, taskStartDate, taskEndDate, false);
     return newITask;
   }
 
   toCTaskType(data: any): cTask {
-    let id = 0, t_id = 0, t_name = "Name Error", t_startDate = "1970-01-01T00:00:00",
-      t_endDate = "2037-12-31T23:59:59", t_completeDate = "2006-06-06T06:06:06";
-    if (data["_id"]) id = data["_id"];
-    if (data["t_id"]) t_id = data["t_id"];
-    if (data["t_name"]) t_name = data["t_name"];
-    if (data["t_startDate"]) t_startDate = data["t_startDate"];
-    if (data["t_endDate"]) t_endDate = data["t_endDate"];
-    if (data["t_completeDate"]) t_completeDate = data["t_completeDate"];
+    let id = 0, taskId = 0, taskName = "Name Error", taskStartDate = "1970-01-01T00:00:00",
+      taskEndDate = "2037-12-31T23:59:59", taskCompleteDate = "2006-06-06T06:06:06", taskProgress = 0;
+    if (data["id"]) id = data["id"];
+    if (data["taskId"]) taskId = data["taskId"];
+    if (data["taskName"]) taskName = data["taskName"];
+    if (data["taskStartDate"]) taskStartDate = data["taskStartDate"];
+    if (data["taskEndDate"]) taskEndDate = data["taskEndDate"];
+    if (data["taskProgress"]) taskProgress = data["taskProgress"];
+    if (data["taskCompleteDate"]) taskCompleteDate = data["taskCompleteDate"];
 
-    let newITask = new cTask(id, t_id, t_name, t_startDate, t_endDate, true, t_completeDate);
+    let newITask = new cTask(id, taskId, taskName, taskStartDate, taskEndDate, true, taskCompleteDate);
     return newITask;
   }
 
@@ -117,8 +118,8 @@ export class MyDataService {
     let deleteID = incTasks[task_id-1]["id"];
     let task = incTasks[task_id-1];
 
-    let nTask = new cTask(this.cTasks.length, (this.cTasks.length > 0 ?  this.cTasks[this.cTasks.length - 1]["t_id"]+1 : 1),
-    task.t_name, task.t_startDate, task.t_endDate, true, cDate);
+    let nTask = new cTask(this.cTasks.length, (this.cTasks.length > 0 ?  this.cTasks[this.cTasks.length - 1]["taskId"]+1 : 1),
+    task.taskName, task.taskStartDate, task.taskEndDate, true, cDate);
 
     let res: any = [nTask, deleteID];
     return res;

@@ -13,7 +13,6 @@ export class EditWindowCompleteComponent {
   @Input() tasks: Task[];
   @Input() cTasks: Task[];
   @Input() incTasks: Task[];
-  @Output() taskToNW:EventEmitter<Task[]>= new EventEmitter();
 
   @Input() windowVisible: boolean;
   @Input() windowType: string;
@@ -44,15 +43,15 @@ export class EditWindowCompleteComponent {
 
   ngOnInit(): void {
     this.rID = this.getTask(this.task_id).id;
-    this.taskName = this.getTask(this.task_id).t_name;
+    this.taskName = this.getTask(this.task_id).taskName;
 
-    this.startDate = new Date(this.getTask(this.task_id).t_startDate);
-    this.startTime = new Date(this.getTask(this.task_id).t_startDate);
+    this.startDate = new Date(this.getTask(this.task_id).taskStartDate);
+    this.startTime = new Date(this.getTask(this.task_id).taskStartDate);
 
-    this.deadDate = new Date(this.getTask(this.task_id).t_endDate);
+    this.deadDate = new Date(this.getTask(this.task_id).taskEndDate);
 
-    this.endDate = new Date(this.getTask(this.task_id).t_completeDate);
-    this.endTime = new Date(this.getTask(this.task_id).t_completeDate);
+    this.endDate = new Date(this.getTask(this.task_id).taskCompleteDate);
+    this.endTime = new Date(this.getTask(this.task_id).taskCompleteDate);
   }
 
   editTask() {

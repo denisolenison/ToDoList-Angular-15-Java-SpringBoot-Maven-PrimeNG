@@ -9,22 +9,22 @@ export class SortsService {
   sortTasks(data: Task[], typeOfSort : number) {
     let key = '';
     if (typeOfSort == 1) {
-      key = 't_startDate';
+      key = 'taskStartDate';
     }
     else if (typeOfSort == 2) {
-      key = 't_name';
+      key = 'taskName';
     }
     else if (typeOfSort == 3) {
-      key = 't_endDate';
+      key = 'taskEndDate';
     }
     else if (typeOfSort == 4) {
-      key = 't_completeDate';
+      key = 'taskCompleteDate';
     }
     else if (typeOfSort == 5) {
-      key = 't_progress';
+      key = 'taskProgress';
     }
     else if (typeOfSort == 6) {
-      key = 't_id';
+      key = 'taskId';
     }
 
 
@@ -41,81 +41,24 @@ export class SortsService {
     }
   }
 
-  checkSorted(data: Task[], typeOfSort : number) {
-    let key = '';
-    if (typeOfSort == 1) {
-      key = 't_startDate';
-    }
-    else if (typeOfSort == 2) {
-      key = 't_name';
-    }
-    else if (typeOfSort == 3) {
-      key = 't_endDate';
-    }
-    else if (typeOfSort == 4) {
-      key = 't_completeDate';
-    }
-    else if (typeOfSort == 5) {
-      key = 't_progress';
-    }
-    else if (typeOfSort == 6) {
-      key = 't_id';
-    }
 
-
-    let oldSort = data.slice(); //no reference
-    if (typeOfSort != 5) {
-      data = data.sort((task1, task2) => (task1 as any)[key] >= (task2 as any)[key] ? 1 : -1);
-    }
-    else {
-      data = data.sort((task1, task2) => (task1 as any)[key] <= (task2 as any)[key] ? 1 : -1);
-    }
-
-    if (this.eqTArrs(oldSort, data) || this.eqTArrs(oldSort.reverse(), data)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
-  reorderT_ID(data: Task[]) {
+  reordertaskId(data: Task[]) {
     for (let i = 1 ; i < data.length ; ++i) {
-      data[i-1]["t_id"] = i;
+      data[i-1]["taskId"] = i;
     }
-    if (data[data.length-1]) data[data.length-1]["t_id"] = data.length;
-    //я без понятия, почему последний элемент t_id не меняется
+    if (data[data.length-1]) data[data.length-1]["taskId"] = data.length;
+    //я без понятия, почему последний элемент taskId не меняется
     return data;
   }
-
-  checkOrderedByTID(data: Task[]) {
-    let th = true;
-    for (let i = 1 ; i < data.length - 1 ; ++i) {
-      if (data[i]["t_id"] < data[i-1]["t_id"]) {
-        th = false;
-        return false;
-      }
-    }
-    console.log(data);
-    return th;
-  }
-
-  sortNReorder(data: Task[], type: number) {
-    let dataNew = data.slice();
-    this.sortTasks(dataNew, type);
-    this.reorderT_ID(dataNew);
-    return dataNew;
-  }
-
 
 
   eqTasks(task1: Task, task2 : Task) {
     let cond = true;
-    if ((task1 as any)['t_startDate'] != (task2 as any)['t_startDate']) cond = false;
-    if ((task1 as any)['t_endDate'] != (task2 as any)['t_endDate']) cond = false;
-    if ((task1 as any)['t_name'] != (task2 as any)['t_name']) cond = false;
-    if ((task1 as any)['t_completeDate'] != (task2 as any)['t_completeDate']) cond = false;
-    if ((task1 as any)['t_isComplete'] != (task2 as any)['t_isComplete']) cond = false;
+    if ((task1 as any)['taskStartDate'] != (task2 as any)['taskStartDate']) cond = false;
+    if ((task1 as any)['taskEndDate'] != (task2 as any)['taskEndDate']) cond = false;
+    if ((task1 as any)['taskName'] != (task2 as any)['taskName']) cond = false;
+    if ((task1 as any)['taskCompleteDate'] != (task2 as any)['taskCompleteDate']) cond = false;
+    if ((task1 as any)['taskIsComplete'] != (task2 as any)['taskIsComplete']) cond = false;
     return cond;
   }
 

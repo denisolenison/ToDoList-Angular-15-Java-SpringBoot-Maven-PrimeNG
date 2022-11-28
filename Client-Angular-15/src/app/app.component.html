@@ -18,36 +18,105 @@
 
 
 
-
 <router-outlet></router-outlet>
+
+<p-confirmDialog #cd [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+  <ng-template pTemplate="header">
+    <h3 *ngIf="taskAction == 0">Удаление {{(isActive ? "текущего" : "выполненного")}} задания №{{task_id}}</h3>
+    <h3 *ngIf="taskAction == 1">Вернуть задание №{{task_id}} в текущие?</h3>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button *ngIf="taskAction == 0" class="p-button-danger" type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
+    <button *ngIf="taskAction == 1" class="p-button-warning" type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
+    <button class="p-button" type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
+  </ng-template>
+</p-confirmDialog>
 
 <app-header [userName]="userName" [windowVisible] = "windowVisible" [windowType] = "windowType"
             (outPage)="GetPageFromChild($event)" #appHeaderElement
             (openCreate)="setWindow($event)"></app-header>
-<app-table-header [ngStyle] = "{'top':headerHeight}" [currentPage] = "currentPage"
-                  [myData1] = "incTasks" [myData2] = "cTasks"
-                  [myData] = "tasks" (outData)="onUpdate()" #appTableHeaderElement></app-table-header>
 
-<app-table-row [ngStyle] = "{'top':header2Height}"
-               *ngFor="let task of incTasks; let isFirst = first; let isLast = last" [thisTask] = "task"
-               [isFirst] = "isFirst" [isLast] = "isLast" [currentPage] = "currentPage"
-               (dragTask) = "dragTask($event)" (deleteTask) = "deleteTask($event)"
-               (returnTask) = "returnTask($event)" (openW) = "setWindow($event)"></app-table-row>
 
-<app-table-row [ngStyle] = "{'top':header2Height}"
-               *ngFor="let task of cTasks; let isFirst = first; let isLast = last" [thisTask] = "task"
-               [isFirst] = "isFirst" [isLast] = "isLast" [currentPage] = "currentPage"
-               (dragTask) = "dragTask($event)" (deleteTask) = "deleteTask($event)"
-               (returnTask) = "returnTask($event)" (openW) = "setWindow($event)"></app-table-row>
+<p-table [value]="tasks" [ngStyle] = "{'top':headerHeight}" [scrollable]="true"
+         scrollHeight="625px"  [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header">
+    <tr class="tr header" id="trHeader">
+      <th class="t1">№</th>
+      <th class="t2"><b>Дата Начала</b>
+        <button pButton pRipple type="button" class="p-button-secondary p-button-sm
+          p-button-raised" title="Добавить новое задание" (click)="beginSort(1)">
+          <i class="pi pi-sort-alt"></i></button>
+      </th>
+      <th class="t3"><b>Задача</b>
+        <button pButton pRipple type="button" class="p-button-secondary p-button-sm
+          p-button-raised" title="Добавить новое задание" (click)="beginSort(2)">
+          <i class="pi pi-sort-alt"></i></button>
+      </th>
+      <th class="t4" *ngIf="currentPage==1"><b>Дедлайн</b><button pButton pRipple type="button" class="p-button-secondary p-button-sm
+          p-button-raised" title="Добавить новое задание" (click)="beginSort(3)">
+        <i class="pi pi-sort-alt"></i></button>
+      </th>
+      <th class="t4" *ngIf="currentPage==2"><b>Выполнено</b><button pButton pRipple type="button" class="p-button-secondary p-button-sm
+          p-button-raised" title="Добавить новое задание" (click)="beginSort(4)">
+        <i class="pi pi-sort-alt"></i></button>
+      </th>
+      <th class="t5"><b>Прочее</b><button pButton pRipple type="button" class="p-button-secondary p-button-sm
+          p-button-raised" title="Добавить новое задание" (click)="beginSort(5)">
+        <i class="pi pi-sort-alt"></i></button>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template id="trBody" pTemplate="body" let-task>
+    <tr class="tr" [ngClass]="{'expired': setColor(task)['isExpired'] == true,
+                              'complete': task.taskIsComplete}"  *ngIf="setColor(task)['isShowable']">
+      <td class="t1">{{task.taskId}}</td>
+      <td class="t2">{{task.taskStartDate | MyDateNS}}</td>
+      <td class="t3">{{task.taskName}}</td>
+      <td class="t4" *ngIf="!task.taskIsComplete">{{task.taskEndDate | MyDateNS}}</td>
+      <td class="t4" *ngIf="task.taskIsComplete">{{task.taskCompleteDate | MyDateNS}}</td>
+      <td class="t5">
+        <button *ngIf="task.taskId != 1" (click)="dragTask(task.taskId, task.taskIsComplete, 1)" pButton pRipple type="button" class="p-button-rounded p-button-sm p-button-raised">
+          <i class="pi pi-angle-up"></i>
+        </button>
+        <button *ngIf="(task.taskId != this.incTasks.length && currentPage == 1)
+        || (task.taskId != this.cTasks.length && currentPage == 2)"
+                (click)="dragTask(task.taskId, task.taskIsComplete, 0)" pButton pRipple type="button" class="p-button-rounded p-button-sm p-button-raised">
+          <i class="pi pi-angle-down"></i>
+        </button>
+        <button *ngIf="!task.taskIsComplete"  pButton pRipple type="button" (click)="openWindow(true, 'edit', task.taskId)"  class="p-button-help p-button-rounded p-button-sm p-button-raised">
+          <i class="pi pi-file-edit"></i>
+        </button>
+        <button *ngIf="task.taskIsComplete"  pButton pRipple type="button" (click)="openWindow(true, 'editC', task.taskId)"  class="p-button-help p-button-rounded p-button-sm p-button-raised">
+          <i class="pi pi-file-edit"></i>
+        </button>
+        <button *ngIf="!task.taskIsComplete" (click)="openWindow(true, 'comp', task.taskId)" pButton pRipple type="button" class="p-button-success p-button-rounded p-button-sm p-button-raised">
+          <i class="pi pi-check-circle"></i>
+        </button>
+        <button *ngIf="task.taskIsComplete" (click)="confirmReturn(task.taskId)" pButton pRipple type="button" class="p-button-warning p-button-rounded p-button-sm p-button-raised">
+          <i class="pi pi-undo"></i>
+        </button>
+        <button (click)="confirmDelete(task.taskId, task.id, task.taskIsComplete)" pButton pRipple type="button" class="p-button-danger p-button-rounded p-button-sm p-button-raised">
+          <i class="pi pi-times-circle"></i>
+        </button>
+      </td>
+    </tr>
+    <div pRipple class="progressBar" *ngIf="!task.taskIsComplete && setColor(task)['isShowable']" [ngStyle] = "{'background-color' : setColor(task)['thisColor'],
+   'width' : setColor(task)['thisWidth']}" ><div class="pHold">{{setColor(task)['thisWidth']}}</div>
+    </div>
+  </ng-template>
+</p-table>
+
+
 
 <app-time-gui></app-time-gui>
 
 <app-new-window *ngIf="windowVisible" #appNewWindow [WHHeight] = "WHHeight"
                 [tasks] = "tasks" [cTasks] = "cTasks" [incTasks] = "incTasks"
-                (taskToApp)="GetDataFromChild($event)"
                 [windowVisible] = "windowVisible" [windowType] = "windowType"
                 [task_id] = "task_id" (closeWindowThis)="setWindow($event)"
                 (updateTasks) = "onUpdate()" (addDeleteInfo) = "completeTsk($event)">
 </app-new-window>
 
-<div class="placeholder" [ngStyle]="{'height':'200px'}"></div>
+
+<div class="placeholder" [ngStyle]="{'height':'150px'}"></div>
+

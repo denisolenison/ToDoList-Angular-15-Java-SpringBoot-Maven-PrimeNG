@@ -9,23 +9,22 @@
 </button>
 </div>
 <app-make-window *ngIf = "windowType == 'add'" [ngStyle] = "{'margin-top':WHHeight}" [tasks] = "incTasks"
-                 (taskToNW)="emitNext($event)" [windowVisible] = "windowVisible"
+                 [windowVisible] = "windowVisible"
                  [windowType] = "windowType" (closeWindowThis) = "onClose($event)"
                   (updateTasks) = "updateNext()"></app-make-window>
 
 <app-complete-window *ngIf = "windowType == 'comp'" [ngStyle] = "{'margin-top':WHHeight}" [tasks] = "incTasks"
-                 (taskToNW)="emitNext($event)" [windowVisible] = "windowVisible"
+                 [windowVisible] = "windowVisible"
                  [windowType] = "windowType" (closeWindowThis) = "onClose($event)"
                      [task_id] = "task_id" (addDeleteInfo)="addDeleteInfoNext($event)"></app-complete-window>
 
 <app-edit-window *ngIf = "windowType == 'edit'" [ngStyle] = "{'margin-top':WHHeight}" [tasks] = "tasks"
                  [incTasks] = "incTasks"
-                     (taskToNW)="emitNext($event)" [windowVisible] = "windowVisible"
+                 [windowVisible] = "windowVisible"
                      [windowType] = "windowType" (closeWindowThis) = "onClose($event)"
                      (updateTasks) = "updateNext()" [task_id] = "task_id"></app-edit-window>
 
 <app-edit-window-complete *ngIf = "windowType == 'editC'" [ngStyle] = "{'margin-top':WHHeight}" [tasks] = "tasks"
-                          [cTasks] = "cTasks"
-                 (taskToNW)="emitNext($event)" [windowVisible] = "windowVisible"
+                          [cTasks] = "cTasks" [windowVisible] = "windowVisible"
                  [windowType] = "windowType" (closeWindowThis) = "onClose($event)"
                           (updateTasks) = "updateNext()"[task_id] = "task_id"></app-edit-window-complete>

@@ -34,29 +34,6 @@ app-header {
   box-shadow: 0px 3px 10px -4px #000000;
 }
 
-app-table-header {
-  font-weight: 700;
-  background-color: #eee;
-  font-size: 1.2em;
-  display: flex;
-  flex-direction: row;
-  position: fixed;
-  width: 100%;
-  left: 0px;
-  box-sizing: border-box;
-  border-collapse: collapse;
-  z-index: 2;
-  box-shadow: 0px 3px 10px -4px #000000;
-}
-
-app-table-row {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  box-sizing: border-box;
-  border-collapse: collapse;
-  position: relative;
-}
 
 app-new-window {
   position: fixed;
@@ -72,3 +49,302 @@ app-new-window {
   flex-direction: column;
 }
 
+
+:host ::ng-deep .p-calendar
+.p-datepicker table td {
+  padding: 0.3rem;
+}
+
+:host ::ng-deep .p-calendar
+.p-datepicker table td > span {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  transition: box-shadow 0.2s;
+  border: 1px solid transparent;
+}
+
+:host ::ng-deep .p-calendar
+.p-datepicker .p-datepicker-buttonbar {
+  padding: 0;
+  border-top: 1px solid #dee2e6;
+}
+
+:host ::ng-deep .p-calendar
+.p-datepicker .p-datepicker-header {
+  padding: 0;
+  color: #495057;
+  background: #ffffff;
+  font-weight: 700;
+  margin: 0;
+  border-bottom: 1px solid #dee2e6;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+
+p-table {
+  display: flex;
+  flex-direction: row;
+  font-weight: 700;
+  background-color: #eee;
+  font-size: 1.2em;
+  position: relative;
+  width: 100%;
+  left: 0px;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  z-index: 2;
+  box-shadow: 0px 3px 10px -4px #000000;
+}
+
+.tr {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  border-bottom: 2px solid #b4b4b4;
+}
+
+.t1 {
+  width: 4%;
+  min-height: 30px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-right: 3px solid #b4b4b4;
+  box-sizing: border-box;
+}
+
+
+.t2 {
+  width: 18%;
+  min-height: 30px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-right: 3px solid #b4b4b4;
+  box-sizing: border-box;
+}
+
+
+.t3 {
+  width: 45%;
+  min-height: 30px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-right: 3px solid #b4b4b4;
+  box-sizing: border-box;
+}
+
+
+.t4 {
+  width: 18%;
+  min-height: 30px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-right: 3px solid #b4b4b4;
+  box-sizing: border-box;
+}
+
+
+.t5 {
+  width: 15%;
+  min-height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 7px 1.5% 5px;
+  flex-wrap: wrap;
+}
+
+
+:host ::ng-deep .p-datatable .p-datatable-thead > td {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  position: relative;
+}
+
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: center;
+  align-items: center;
+  border-right: 3px solid #b4b4b4;
+  background-color: #eee;
+
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  text-align: center;
+  align-items: center;
+  border-right: 3px solid #b4b4b4;
+}
+
+
+th .p-button.p-button-sm {
+  font-size: 0.575rem;
+  padding: 0.25rem 0.25rem;
+}
+
+i {
+  font-size: 0.75rem;
+  margin: 0rem;
+}
+
+tr .t1 {
+  display: block;
+  text-align: center;
+}
+
+tr .t1 b {
+  text-align: center;
+}
+
+tr .t2 {
+  display: block;
+  text-align: center;
+}
+
+tr .t2 b {
+  text-align: center;
+}
+
+tr .t2 button {
+  float: right;
+  margin-right: 3%;
+}
+
+tr .t3 {
+  display: block;
+  text-align: center;
+}
+
+tr .t3 b {
+  text-align: center;
+}
+
+tr .t3 button {
+  float: right;
+  margin-right: 1%;
+}
+
+tr .t4 {
+  display: block;
+  text-align: center;
+}
+
+tr .t4 b {
+  text-align: center;
+}
+
+tr .t4 button {
+  float: right;
+  margin-right: 2%;
+}
+
+tr .t5 {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+tr .t5 b {
+  text-align: center;
+}
+
+tr .t5 button {
+  float: right;
+  margin-right: 3%;
+}
+
+.progressBar {
+  height: 13px;
+  width: 50%;
+  float: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  -webkit-transition: 0.4s linear;
+  -moz-transition: 0.4s linear;
+  -o-transition: 0.4s linear;
+  transition: 0.4s linear;
+  -webkit-transition-property: width, background-color;
+  -moz-transition-property: width, background-color;
+  -o-transition-property: width, background-color;
+  transition-property: width, background-color;
+  -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.25), inset 0 2px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.25), inset 0 2px rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+
+.pHold {
+  background: rgba(255, 255, 255, .6);
+  user-select: none;
+  padding: 0px 3px;
+  border-radius: 5px;
+  text-align: center;
+
+  font-size: 12px;
+  font-weight: 700;
+  display: block;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+:host ::ng-deep .p-datatable-scrollable-table>.p-datatable-thead {
+  z-index: 3;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > .complete {
+  background: #d9ffe2;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > .expired {
+  background: #ffcdc9;
+}
+
+:host ::ng-deep .p-datatable {
+  width: 100% !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > .tr > .t5 > .p-button.p-button-sm {
+  font-size: 0.675rem;
+  padding: 0.2rem 0.2rem;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > .tr > .t5 > .p-button.p-button-sm > i {
+  font-size: 0.9rem;
+  margin: 0rem;
+}

@@ -16,15 +16,11 @@ export class NewWindowComponent {
   @Input() windowType: string;
   @Input() task_id: number;
 
-  @Output() taskToApp:EventEmitter<Task[]>= new EventEmitter();
+
   @Output() closeWindowThis:EventEmitter<{open: boolean, type: string}>= new EventEmitter();
   @Output() updateTasks:EventEmitter<void>= new EventEmitter();
   @Output() addDeleteInfo:EventEmitter<{addTask: Task, deleteTask: number}>= new EventEmitter();
 
-  emitNext(tasks:Task[]) {
-    this.tasks = tasks;
-    this.taskToApp.emit(this.tasks);
-  }
 
   closeWindow() {
     this.windowVisible = false;
@@ -38,7 +34,6 @@ export class NewWindowComponent {
   }
 
   updateNext() {
-    console.log("XXX");
     this.updateTasks.emit();
   }
 
