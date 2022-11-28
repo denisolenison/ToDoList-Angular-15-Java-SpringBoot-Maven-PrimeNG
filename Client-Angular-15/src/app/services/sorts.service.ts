@@ -6,39 +6,14 @@ import { Task } from '../models/task';
 })
 export class SortsService {
 
-  sortTasks(data: Task[], typeOfSort : number) {
+  sortTasksByTaskId(data: Task[]) {
     let key = '';
-    if (typeOfSort == 1) {
-      key = 'taskStartDate';
-    }
-    else if (typeOfSort == 2) {
-      key = 'taskName';
-    }
-    else if (typeOfSort == 3) {
-      key = 'taskEndDate';
-    }
-    else if (typeOfSort == 4) {
-      key = 'taskCompleteDate';
-    }
-    else if (typeOfSort == 5) {
-      key = 'taskProgress';
-    }
-    else if (typeOfSort == 6) {
-      key = 'taskId';
-    }
+    key = 'taskId';
 
 
     let oldSort = data.slice(); //no reference
-    if (typeOfSort != 5) {
-      data = data.sort((task1, task2) => (task1 as any)[key] >= (task2 as any)[key] ? 1 : -1);
-    }
-    else {
-      data = data.sort((task1, task2) => (task1 as any)[key] <= (task2 as any)[key] ? 1 : -1);
-    }
+    data = data.sort((task1, task2) => (task1 as any)[key] >= (task2 as any)[key] ? 1 : -1);
 
-    if (this.eqTArrs(oldSort, data) && typeOfSort != 6) {
-      data = data.reverse();
-    }
   }
 
 

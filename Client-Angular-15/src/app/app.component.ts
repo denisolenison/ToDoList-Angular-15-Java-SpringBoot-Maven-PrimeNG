@@ -6,6 +6,7 @@ import { MyDataService } from "./services/my-data.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { RU_CONFIG } from "./models/calendar-ru";
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { SortEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -56,14 +57,14 @@ export class AppComponent implements OnInit {
               this.cTasks.push(task);
             }
 
-            this.ss.sortTasks(this.incTasks, 6);
+            this.ss.sortTasksByTaskId(this.incTasks);
             this.ss.reordertaskId(this.incTasks);
-            this.ss.sortTasks(this.cTasks, 6);
+            this.ss.sortTasksByTaskId(this.cTasks);
             this.ss.reordertaskId(this.cTasks);
 
             this.tasks = this.incTasks.concat(this.cTasks);
 
-            this.ss.sortTasks(this.tasks, 6);
+            this.ss.sortTasksByTaskId(this.tasks);
             setInterval(() => {this.mainApp();}, 50);
 
           },
@@ -274,29 +275,55 @@ export class AppComponent implements OnInit {
   }
 
 
-
-  beginSort(type: number) {
+  sortAndSave(event: SortEvent) {
+    // @ts-ignore
     if (this.currentPage == 1) {
-      this.ss.sortTasks(this.incTasks, type);
-      this.incTasks = this.ss.reordertaskId(this.incTasks);
+      this.incTasks.sort((data1, data2) => {
+        let result = null;
+        // @ts-ignore
+        let value1 = data1[event.field];
+        // @ts-ignore
+        let value2 = data2[event.field];
 
-      this.t.fullSort(this.incTasks, false);
-      this.letSort();
+        if (typeof value1 === 'string' && typeof value2 === 'string')
+          result = value1.localeCompare(value2);
+        else
+          result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+        // @ts-ignore
+        return (event.order * result);
+      });
+      this.incTasks = this.ss.reordertaskId(this.incTasks);
     }
     else {
-      this.ss.sortTasks(this.cTasks, type);
-      this.cTasks = this.ss.reordertaskId(this.incTasks);
+      this.cTasks.sort((data1, data2) => {
 
-      this.t.fullSort(this.incTasks, true);
-      this.letSort();
+        let result = null;
+        // @ts-ignore
+        let value1 = data1[event.field];
+        // @ts-ignore
+        let value2 = data2[event.field];
+
+        if (typeof value1 === 'string' && typeof value2 === 'string')
+          result = value1.localeCompare(value2);
+        else
+          result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+        // @ts-ignore
+        return (event.order * result);
+      });
+      this.cTasks = this.ss.reordertaskId(this.cTasks);
     }
+
+    this.tasks = this.incTasks.concat(this.cTasks);
+    this.finishSort();
 
   }
 
 
-  letSort() {
+  finishSort() {
     if (this.currentPage == 1) {
-      this.t.fullSort(this.incTasks, false).subscribe(
+      this.t.changeAll(this.incTasks, false).subscribe(
         (response: Task[]) => {
 
         },
@@ -309,7 +336,7 @@ export class AppComponent implements OnInit {
       );
     }
     else {
-      this.t.fullSort(this.cTasks, true).subscribe(
+      this.t.changeAll(this.cTasks, true).subscribe(
         (response: Task[]) => {
 
         },

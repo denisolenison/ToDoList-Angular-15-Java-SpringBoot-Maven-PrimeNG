@@ -38,31 +38,20 @@
 
 
 <p-table [value]="tasks" [ngStyle] = "{'top':headerHeight}" [scrollable]="true"
-         scrollHeight="625px"  [tableStyle]="{'min-width': '50rem'}">
+         scrollHeight="625px"  [tableStyle]="{'min-width': '50rem'}"
+         (onSort)="sortAndSave($event)" [customSort]="true" [lazy]="true">
   <ng-template pTemplate="header">
     <tr class="tr header" id="trHeader">
       <th class="t1">№</th>
-      <th class="t2"><b>Дата Начала</b>
-        <button pButton pRipple type="button" class="p-button-secondary p-button-sm
-          p-button-raised" title="Отсортировать по дате начала" (click)="beginSort(1)">
-          <i class="pi pi-sort-alt"></i></button>
+      <th class="t2" pSortableColumn="taskStartDate"><b>Дата Начала</b><p-sortIcon field="taskStartDate"></p-sortIcon>
       </th>
-      <th class="t3"><b>Задача</b>
-        <button pButton pRipple type="button" class="p-button-secondary p-button-sm
-          p-button-raised" title="Отсортировать на названию в алфавитном порядке" (click)="beginSort(2)">
-          <i class="pi pi-sort-alt"></i></button>
+      <th class="t3" pSortableColumn="taskName"><b>Задача</b><p-sortIcon field="taskName"></p-sortIcon>
       </th>
-      <th class="t4" *ngIf="currentPage==1"><b>Дедлайн</b><button pButton pRipple type="button" class="p-button-secondary p-button-sm
-          p-button-raised" title="Отсортировать по дате дедлайна" (click)="beginSort(3)">
-        <i class="pi pi-sort-alt"></i></button>
+      <th class="t4" pSortableColumn="taskEndDate" *ngIf="currentPage==1"><b>Дедлайн</b><p-sortIcon field="taskEndDate"></p-sortIcon>
       </th>
-      <th class="t4" *ngIf="currentPage==2"><b>Выполнено</b><button pButton pRipple type="button" class="p-button-secondary p-button-sm
-          p-button-raised" title="Отсортировать по дате выполнения" (click)="beginSort(4)">
-        <i class="pi pi-sort-alt"></i></button>
+      <th class="t4" pSortableColumn="taskCompleteDate" *ngIf="currentPage==2"><b>Выполнено</b><p-sortIcon field="taskCompleteDate"></p-sortIcon>
       </th>
-      <th class="t5"><b>Прочее</b><button pButton pRipple type="button" class="p-button-secondary p-button-sm
-          p-button-raised" title="Отсортировать по шкале" (click)="beginSort(5)">
-        <i class="pi pi-sort-alt"></i></button>
+      <th class="t5" pSortableColumn="taskProgress"><b>Прочее</b><p-sortIcon field="taskProgress"></p-sortIcon>
       </th>
     </tr>
   </ng-template>

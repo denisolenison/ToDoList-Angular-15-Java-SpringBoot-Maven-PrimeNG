@@ -102,7 +102,7 @@ export class MyDataService {
     }
   }
 
-  fullSort(data: Task[], isComplete: boolean): Observable<Task[]> {
+  changeAll(data: Task[], isComplete: boolean): Observable<Task[]> {
     if (isComplete) {
       return this.http.put<Task[]>(`${this.serverURL}/ct/editall/`, data);
     }
